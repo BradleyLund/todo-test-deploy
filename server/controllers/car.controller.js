@@ -1,3 +1,46 @@
+const UserModel = require("./models/user.model.js");
+const mongoose = require("mongoose");
+
+// module.exports = {
+//   createANewUser: function (req, res) {
+//     console.log(req.body.username, req.body.password);
+//     // const newUserDbDocument = new UserModel({
+//     //   username: username,
+//     //   passsword: password,
+//     //   toDoArray: [],
+//     // });
+
+//     // newUserDbDocument.save(function (error) {
+//     //   if (error) {
+//     //     callback({ error: true });
+//     //   } else {
+//     //     callback({ success: true });
+//     //   }
+//     // });
+//   },
+// };
+
+// module.exports = {
+//   loginUser: function (username, password, callback) {
+//     UserModel.findOne({ username: username }).exec(function (error, user) {
+//       if (error) {
+//         callback({ error: true });
+//       } else if (!user) {
+//         callback({ error: true });
+//       } else {
+//         user.comparePassword(password, function (matchError, isMatch) {
+//           if (matchError) {
+//             callback({ error: true });
+//           } else if (!isMatch) {
+//             callback({ error: true });
+//           } else {
+//             callback({ success: true });
+//           }
+//         });
+//       }
+//     });
+//   },
+// };
 // /* In this file, you will create all the code needed to perform CRUD operations using Mongoose. */
 // const Car = require("../models/car.model.js");
 // const mongoose = require("mongoose");
