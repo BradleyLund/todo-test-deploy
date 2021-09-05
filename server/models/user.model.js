@@ -1,46 +1,47 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
 
 // I used a tutorial at this website to implement saving the password as a hash and implementing comparison function
 // https://coderrocketfuel.com/article/store-passwords-in-mongodb-with-node-js-mongoose-and-bcrypt
 
-const UserSchema = new mongoose.Schema({
+let UserSchema = mongoose.Schema({
   username: String,
   password: String,
   toDoArray: [],
 });
 
-UserSchema.pre("save", function (next) {
-  const user = this;
+// UserSchema.pre("save", function (next) {
+//   const user = this;
 
-  if (this.isModified("password") || this.isNew) {
-    bcrypt.genSalt(10, function (saltError, salt) {
-      if (saltError) {
-        return next(saltError);
-      } else {
-        bcrypt.hash(user.password, salt, function (hashError, hash) {
-          if (hashError) {
-            return next(hashError);
-          }
+//   if (this.isModified("password") || this.isNew) {
+//     bcrypt.genSalt(10, function (saltError, salt) {
+//       if (saltError) {
+//         console.log(saltError);
+//         return next(saltError);
+//       } else {
+//         bcrypt.hash(user.password, salt, function (hashError, hash) {
+//           if (hashError) {
+//             console.log(hashError);
+//             return next(hashError);
+//           }
 
-          user.password = hash;
-          next();
-        });
-      }
-    });
-  } else {
-    return next();
-  }
-});
+//           user.password = hash;
+//           next();
+//         });
+//       }
+//     });
+//   } else {
+//     return next();
+//   }
+// });
 
-UserSchema.methods.comparePassword = function (password, callback) {
-  bcrypt.compare(password, this.password, function (error, isMatch) {
-    if (error) {
-      return callback(error);
-    } else {
-      callback(null, isMatch);
-    }
-  });
-};
+// UserSchema.methods.comparePassword = function (password, callback) {
+//   bcrypt.compare(password, this.password, function (error, isMatch) {
+//     if (error) {
+//       return callback(error);
+//     } else {
+//       callback(null, isMatch);
+//     }
+//   });
+// };
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("Users", UserSchema);

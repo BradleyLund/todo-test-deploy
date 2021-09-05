@@ -1,24 +1,27 @@
-const UserModel = require("./models/user.model.js");
+const User = require("../models/user.model");
 const mongoose = require("mongoose");
 
-// module.exports = {
-//   createANewUser: function (req, res) {
-//     console.log(req.body.username, req.body.password);
-//     // const newUserDbDocument = new UserModel({
-//     //   username: username,
-//     //   passsword: password,
-//     //   toDoArray: [],
-//     // });
+module.exports = {
+  createANewUser: function (req, res) {
+    // console.log(newUserDbDocument);
 
-//     // newUserDbDocument.save(function (error) {
-//     //   if (error) {
-//     //     callback({ error: true });
-//     //   } else {
-//     //     callback({ success: true });
-//     //   }
-//     // });
-//   },
-// };
+    let userModel = new User({
+      username: req.body.username,
+      password: req.body.password,
+      toDoArray: [],
+    });
+
+    console.log(userModel);
+    // console.log("part 2");
+    userModel.save(function (error) {
+      if (error) {
+        res.send(error);
+      } else {
+        res.send("done");
+      }
+    });
+  },
+};
 
 // module.exports = {
 //   loginUser: function (username, password, callback) {
