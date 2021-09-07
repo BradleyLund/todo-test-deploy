@@ -1,8 +1,12 @@
 const User = require("../models/user.model");
 const mongoose = require("mongoose");
 
+module.exports = {};
+
 module.exports = {
   createANewUser: function (req, res) {
+    // can use a findone method here and if the username is found then respond with no you cannot create a new username with this username
+
     // console.log(newUserDbDocument);
 
     let userModel = new User({
@@ -18,6 +22,35 @@ module.exports = {
         res.send(error);
       } else {
         res.send("done");
+      }
+    });
+  },
+
+  loginUser: function (req, res) {
+    console.log("you are in the login function");
+    User.findOne({ username: req.body.username }).exec(function (error, user) {
+      if (error) {
+        //   error with the mongoose findone function
+        res.send("error with the mongoose findone function");
+      } else if (!user) {
+        //   no username with that name found
+        res.send("no username with that name found");
+      } else {
+        //   found the username and now comparing
+        user.comparePassword(req.body.password, function (matchError, isMatch) {
+          if (matchError) {
+            //   error with the compare function
+            res.send("error with the compare function");
+          } else if (!isMatch) {
+            //   the password did not match, please re enter your password
+            res.send(
+              "the password did not match, please re enter your password"
+            );
+          } else {
+            //   the password did match welcom you are logged in
+            res.send("the password did match welcom you are logged in");
+          }
+        });
       }
     });
   },

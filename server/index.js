@@ -45,18 +45,18 @@ app.get("/api", function (req, res) {
 
 // we probably need to put this in the routes
 
-// here we would need to get the user from the database and see if the hashed password matches the one in the DB
-app.post("/login", (req, res) => {
-  const usr = req.body.username;
-  // this is the entered password
-  const pwd = req.body.password;
+// // here we would need to get the user from the database and see if the hashed password matches the one in the DB
+// app.post("/login", (req, res) => {
+//   const usr = req.body.username;
+//   // this is the entered password
+//   const pwd = req.body.password;
 
-  // get the hashed password from the Database by finding the document with that user name. maybe a controller function here
-  // for example something like the below
-  // const hash = getPasswordbyUsername(username)
+//   // get the hashed password from the Database by finding the document with that user name. maybe a controller function here
+//   // for example something like the below
+//   // const hash = getPasswordbyUsername(username)
 
-  res.send(`Username: ${usr}\n Password: ${pwd}`);
-});
+//   res.send(`Username: ${usr}\n Password: ${pwd}`);
+// });
 
 // app.post("/newuser", (req, res) => {
 //   const usr = req.body.username;
@@ -81,6 +81,7 @@ app.post("/login", (req, res) => {
 app.use(express.static(path.resolve(__dirname, "../react-ui/build")));
 
 require("./routes/new.js")(app);
+require("./routes/login.js")(app);
 // require("./routes/home.js")(app);
 // require("./routes/delete.js")(app);
 // require("./routes/update.js")(app);
