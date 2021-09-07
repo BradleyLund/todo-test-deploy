@@ -16,6 +16,8 @@ module.exports = {
     });
 
     console.log(userModel);
+    console.log(userModel);
+
     // console.log("part 2");
     userModel.save(function (error) {
       if (error) {
