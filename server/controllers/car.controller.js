@@ -30,6 +30,7 @@ module.exports = {
 
   loginUser: function (req, res) {
     console.log("you are in the login function");
+
     User.findOne({ username: req.body.username }).exec(function (error, user) {
       if (error) {
         //   error with the mongoose findone function
