@@ -64,7 +64,7 @@ require("./routes/newUser.js")(app);
 require("./routes/login.js")(app);
 require("./routes/getList.js")(app);
 require("./routes/addTodo.js")(app);
-// require("./routes/delete.js")(app);
+require("./routes/deleteTodo.js")(app);
 // require("./routes/update.js")(app);
 
 // catch 404 and forward to error handler

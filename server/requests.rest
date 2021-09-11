@@ -37,3 +37,14 @@ Content-Type: application/json
 {
     "todoDescription" : "exercise"
 }
+
+
+###
+
+POST http://localhost:5000/delete
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IlNoYW5lIn0.RoZ5kMBwadWvQASrhlHN0Ai9Qv18YfkSuK2YvQvgAX0
+Content-Type: application/json
+
+{
+    "_id" : "613ccc2b7784ba3484dfcfb5"
+}
