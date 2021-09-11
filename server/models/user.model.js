@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 // I used a tutorial at this website to implement saving the password as a hash and implementing comparison function
 // https://coderrocketfuel.com/article/store-passwords-in-mongodb-with-node-js-mongoose-and-bcrypt
@@ -43,6 +44,10 @@ UserSchema.methods.comparePassword = function (password, callback) {
       callback(null, isMatch);
     }
   });
+};
+
+UserSchema.methods.getSignedJwtToken = function () {
+  return jwt.sign({ id: this._id }, process.env.ACCESS_TOKEN_SECRET);
 };
 
 module.exports = mongoose.model("Users", UserSchema);

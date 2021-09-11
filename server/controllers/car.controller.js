@@ -6,24 +6,33 @@ module.exports = {};
 module.exports = {
   createANewUser: function (req, res) {
     // can use a findone method here and if the username is found then respond with no you cannot create a new username with this username
-
-    // console.log(newUserDbDocument);
-
-    let userModel = new User({
-      username: req.body.username,
-      password: req.body.password,
-      toDoArray: [],
-    });
-
-    console.log(userModel);
-    console.log(userModel);
-
-    // console.log("part 2");
-    userModel.save(function (error) {
+    User.findOne({ username: req.body.username }).exec(function (error, user) {
       if (error) {
-        res.send(error);
+        //   error with the mongoose findone function
+        res.send("error with the mongoose findone function");
+      } else if (!user) {
+        //   no username with that name found
+        // console.log(newUserDbDocument);
+
+        let userModel = new User({
+          username: req.body.username,
+          password: req.body.password,
+          toDoArray: [],
+        });
+
+        // console.log("part 2");
+        userModel.save(function (error, user) {
+          if (error) {
+            res.send("error saving the user");
+          } else {
+            // Make the JWT Token that will be sent to the client side
+            console.log(user.getSignedJwtToken());
+            res.send({ userID: user._id, token: user.getSignedJwtToken() });
+          }
+        });
       } else {
-        res.send("done");
+        // username found and need to respond with that username already exists
+        res.send("that username already exists, try another one");
       }
     });
   },
