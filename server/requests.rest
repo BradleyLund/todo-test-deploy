@@ -35,5 +35,5 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IlNoYW5lIn0.RoZ5kMBwa
 Content-Type: application/json
 
 {
-    "todoItem" : "Take out the garbage"
+    "todoDescription" : "exercise"
 }

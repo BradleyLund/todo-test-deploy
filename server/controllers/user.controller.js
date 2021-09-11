@@ -33,15 +33,21 @@ module.exports = {
       } else if (!user) {
         res.send("that username was not found in the DB");
       } else {
+        console.log(user.toDoArray);
         user.toDoArray.push({ todoDescription: req.body.todoDescription });
-
-        // // save the user
-        // user.save(function(error,data) {
-        //   if (error)
-        // })
+        // // // save the user
+        user.save(function (error, data) {
+          if (error) {
+            console.log(error);
+            res.send("some error ocurred while adding the todo");
+          } else {
+            console.log(data);
+            res.send("todo added successfully");
+          }
+        });
       }
     });
-    res.send(req.body);
+    // res.send(req.body);
   },
 
   getTodoList: function (req, res) {
