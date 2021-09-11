@@ -52,7 +52,11 @@ UserSchema.methods.comparePassword = function (password, callback) {
 };
 
 UserSchema.methods.getSignedJwtToken = function () {
-  return jwt.sign({ id: this._id }, process.env.ACCESS_TOKEN_SECRET);
+  return jwt.sign(
+    JSON.stringify({ username: this.username }),
+    process.env.ACCESS_TOKEN_SECRET,
+    { algorithm: "HS256" }
+  );
 };
 
 module.exports = mongoose.model("Users", UserSchema);

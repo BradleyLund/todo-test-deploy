@@ -1,4 +1,4 @@
 module.exports = function (app) {
-  const car = require("../controllers/car.controller.js");
-  app.get("/update", car.updateByCar);
+  const user = require("../controllers/user.controller.js");
+  app.get("/getlist", user.getTodoList);
 };

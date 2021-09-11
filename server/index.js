@@ -62,6 +62,7 @@ app.use(express.static(path.resolve(__dirname, "../react-ui/build")));
 
 require("./routes/new.js")(app);
 require("./routes/login.js")(app);
+require("./routes/getList.js")(app);
 // require("./routes/home.js")(app);
 // require("./routes/delete.js")(app);
 // require("./routes/update.js")(app);

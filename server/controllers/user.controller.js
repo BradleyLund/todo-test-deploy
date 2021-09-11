@@ -1,12 +1,59 @@
 const User = require("../models/user.model");
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
+
+function authenticateToken(req, res) {
+  console.log("you are in authentication function");
+  const authHeader = req.headers["authorization"];
+  console.log(authHeader);
+  // the line below checks if there is an authorization header, if so it continues else
+  // it sets token to undefined???
+  const token = authHeader && authHeader.split(" ")[1];
+  // send error if no token
+  if (token == null) {
+    return res.send("No auth header with a token");
+  }
+  console.log(token);
+
+  const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+  console.log(decoded);
+}
 
 module.exports = {
   getTodoList: function (req, res) {
     // Here we send the todo list for the user that was requested
-    User.findOne({ _id: req.body.userID }).exec(function (error, user) {
-      console.log(user);
-    });
+    // we need to receive the user id, the jwt token, veryify the token,
+    // then find and send back the list of todos
+    // console.log(req.headers);
+    // console.log(authenticateToken(req, res));
+    // User.findOne({ _id: req.body.userID }).exec(function (error, user) {
+    //   console.log(user);
+    // });
+    // const authHeader = req.headers["authorization"];
+    // const token = authHeader.split(" ")[1];
+    // authenticateToken(req, res);
+    // the below is working
+    payload = {
+      username: "Fred",
+    };
+    const token = jwt.sign(
+      JSON.stringify({ username: "Fred" }),
+      process.env.ACCESS_TOKEN_SECRET,
+      { algorithm: "HS256" }
+    );
+    console.log(token);
+    console.log(req.headers["authorization"].split(" ")[1]);
+    try {
+      const decoded = jwt.verify(
+        req.headers["authorization"].split(" ")[1],
+        process.env.ACCESS_TOKEN_SECRET
+      );
+      res.send(`Hello ${decoded.username}`);
+    } catch (err) {
+      res.send("badtoken");
+    }
+
+    console.log(decoded);
   },
 
   createANewUser: function (req, res) {
@@ -32,7 +79,10 @@ module.exports = {
           } else {
             // Make the JWT Token that will be sent to the client side
             console.log(user.getSignedJwtToken());
-            res.send({ userID: user._id, token: user.getSignedJwtToken() });
+            res.send({
+              username: user.username,
+              token: user.getSignedJwtToken(),
+            });
           }
         });
       } else {
@@ -64,7 +114,10 @@ module.exports = {
           } else {
             //   the password did match welcom you are logged in
             // make the token and send back the user id
-            res.send({ userID: user._id, token: user.getSignedJwtToken() });
+            res.send({
+              username: user.username,
+              token: user.getSignedJwtToken(),
+            });
           }
         });
       }
