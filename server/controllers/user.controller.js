@@ -1,9 +1,14 @@
 const User = require("../models/user.model");
 const mongoose = require("mongoose");
 
-module.exports = {};
-
 module.exports = {
+  getTodoList: function (req, res) {
+    // Here we send the todo list for the user that was requested
+    User.findOne({ _id: req.body.userID }).exec(function (error, user) {
+      console.log(user);
+    });
+  },
+
   createANewUser: function (req, res) {
     // can use a findone method here and if the username is found then respond with no you cannot create a new username with this username
     User.findOne({ username: req.body.username }).exec(function (error, user) {
@@ -38,8 +43,6 @@ module.exports = {
   },
 
   loginUser: function (req, res) {
-    console.log("you are in the login function");
-
     User.findOne({ username: req.body.username }).exec(function (error, user) {
       if (error) {
         //   error with the mongoose findone function
@@ -60,7 +63,8 @@ module.exports = {
             );
           } else {
             //   the password did match welcom you are logged in
-            res.send("the password did match welcom you are logged in");
+            // make the token and send back the user id
+            res.send({ userID: user._id, token: user.getSignedJwtToken() });
           }
         });
       }

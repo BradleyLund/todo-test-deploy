@@ -5,10 +5,15 @@ const jwt = require("jsonwebtoken");
 // I used a tutorial at this website to implement saving the password as a hash and implementing comparison function
 // https://coderrocketfuel.com/article/store-passwords-in-mongodb-with-node-js-mongoose-and-bcrypt
 
+// create a subschema for the todo list array, this will allow us to save the todolist item and let it have an id for deleting
+let ToDoSubSchema = mongoose.Schema({
+  todoDescription: String,
+});
+
 let UserSchema = mongoose.Schema({
   username: String,
   password: String,
-  toDoArray: [],
+  toDoArray: [ToDoSubSchema],
 });
 
 UserSchema.pre("save", function (next) {

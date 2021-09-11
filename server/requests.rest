@@ -9,6 +9,17 @@ POST http://localhost:5000/newuser
 Content-Type: application/json
 
 {
-    "username" : "Brodie",
+    "username" : "Shane",
     "password" :  "tsitsikama"
+}
+
+###
+
+
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "username" : "Brodie",
+    "password" :  "asdf"
 }

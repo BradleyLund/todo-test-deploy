@@ -2,26 +2,6 @@ const express = require("express");
 const path = require("path");
 require("dotenv").config();
 
-// bcrypt for password hashing
-const bcrypt = require("bcryptjs");
-
-const password = "mypass123";
-const saltRounds = 10;
-
-bcrypt.genSalt(saltRounds, function (saltError, salt) {
-  if (saltError) {
-    throw saltError;
-  } else {
-    bcrypt.hash(password, salt, function (hashError, hash) {
-      if (hashError) {
-        throw hashError;
-      } else {
-        console.log(hash);
-      }
-    });
-  }
-});
-
 // needed to add this so that the frontend could make a request and see the response
 var cors = require("cors");
 
@@ -114,7 +94,6 @@ app.listen(PORT, function () {
 });
 
 const uri = process.env.DB_URI;
-console.log(uri);
 mongoose.Promise = global.Promise;
 
 // useMongoClient not working
