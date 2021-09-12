@@ -2,6 +2,7 @@ import "../App.css";
 import Todo from "./Todo.js";
 import Form from "./Form.js";
 import React from "react";
+import axios from "axios";
 
 class PrivateApp extends React.Component {
   constructor(props) {
@@ -17,6 +18,24 @@ class PrivateApp extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  componentDidMount() {
+    // send a get request to the backend with the token
+    let access_token = window.localStorage.getItem("AuthToken");
+
+    axios
+      .get("/getlist", {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   // the function for handling the submition of the form
