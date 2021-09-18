@@ -39,6 +39,28 @@ export default function Login() {
     setPassword(event.target.value);
   };
 
+  const handleRegister = (event) => {
+    event.preventDefault();
+
+    axios
+      .post("/newuser", {
+        username: username,
+        password: password,
+      })
+      .then(
+        (response) => {
+          // in here we can set the token in local storage which can then be sent in the authorization header for the future requests and will then let us see the privatepage
+          const token = response.data.token;
+          window.localStorage.setItem("AuthToken", token);
+          console.log(window.localStorage.getItem("AuthToken"));
+          window.location.reload();
+        },
+        (error) => {
+          alert(error.response.data);
+        }
+      );
+  };
+
   const handleLogin = (event) => {
     event.preventDefault();
     //   take the state and post a request to the backend with the details
@@ -56,7 +78,7 @@ export default function Login() {
           window.location.reload();
         },
         (error) => {
-          console.log(error);
+          alert(error.response.data);
         }
       );
   };
@@ -114,7 +136,8 @@ export default function Login() {
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}>
+            className={classes.submit}
+            onClick={handleRegister}>
             Register
           </Button>
         </form>

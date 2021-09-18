@@ -141,7 +141,7 @@ module.exports = {
           } else {
             // Make the JWT Token that will be sent to the client side
             console.log(user.getSignedJwtToken());
-            res.send({
+            res.status(200).send({
               username: user.username,
               token: user.getSignedJwtToken(),
             });
@@ -149,7 +149,7 @@ module.exports = {
         });
       } else {
         // username found and need to respond with that username already exists
-        res.send("that username already exists, try another one");
+        res.status(401).send("that username already exists, try another one");
       }
     });
   },
@@ -158,25 +158,27 @@ module.exports = {
     User.findOne({ username: req.body.username }).exec(function (error, user) {
       if (error) {
         //   error with the mongoose findone function
-        res.send("error with the mongoose findone function");
+        res.status(401).send("error with the mongoose findone function");
       } else if (!user) {
         //   no username with that name found
-        res.send("no username with that name found");
+        res.status(401).send("no username with that name found");
       } else {
         //   found the username and now comparing
         user.comparePassword(req.body.password, function (matchError, isMatch) {
           if (matchError) {
             //   error with the compare function
-            res.send("error with the compare function");
+            res.status(401).send("error with the compare function");
           } else if (!isMatch) {
             //   the password did not match, please re enter your password
-            res.send(
-              "the password did not match, please re enter your password"
-            );
+            res
+              .status(401)
+              .send(
+                "the password did not match, please re enter your password"
+              );
           } else {
             //   the password did match welcom you are logged in
             // make the token and send back the user id
-            res.send({
+            res.status(200).send({
               username: user.username,
               token: user.getSignedJwtToken(),
             });
