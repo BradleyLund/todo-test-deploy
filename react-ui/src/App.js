@@ -13,7 +13,7 @@ class App extends React.Component {
     } else {
       loggedin = false;
     }
-    return <div>{loggedin ? <PrivateApp /> : <Login />}</div>;
+    return <div id="parentDiv">{loggedin ? <PrivateApp /> : <Login />}</div>;
   }
 }
 

@@ -3,6 +3,7 @@ import Todo from "./Todo.js";
 import Form from "./Form.js";
 import React from "react";
 import axios from "axios";
+import Button from "@material-ui/core/Button";
 
 class PrivateApp extends React.Component {
   constructor(props) {
@@ -18,7 +19,14 @@ class PrivateApp extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
+
+  handleLogout = (event) => {
+    event.preventDefault();
+    window.localStorage.removeItem("AuthToken");
+    window.location.reload();
+  };
 
   componentDidMount() {
     // send a get request to the backend with the token
@@ -145,15 +153,14 @@ class PrivateApp extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="todoCard">
         <h1>Todo List</h1>
-        {/* <Form addTask={addTask} /> */}
+        Add to your list of what needs to be done
         <Form
           input={this.state.input}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
-
         <h2>Tasks to do:</h2>
         <ul>
           {/* map through the tasks in the state and use the todo component to give them the necessary html for a list */}
@@ -166,6 +173,10 @@ class PrivateApp extends React.Component {
             />
           ))}
         </ul>
+        <Button color="primary" variant="contained" onClick={this.handleLogout}>
+          Log out
+        </Button>
+        {/* <Form addTask={addTask} /> */}
       </div>
     );
   }

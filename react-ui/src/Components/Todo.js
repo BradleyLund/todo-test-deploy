@@ -1,15 +1,20 @@
 import React from "react";
+import Button from "@material-ui/core/Button";
 
 function Todo(props) {
   return (
     <li>
-      <div>
+      <div className="todoItem">
         {/* the name is passed down from the parent and the handledelete function too */}
         <label>{props.name}</label>
         {/* the handle delete function gets the name of the task and deletes that from the list */}
-        <button type="button" onClick={() => props.handleDelete(props.id)}>
-          Delete
-        </button>
+        <Button
+          variant="contained"
+          color="primary"
+          type="button"
+          onClick={() => props.handleDelete(props.id)}>
+          Done
+        </Button>
       </div>
     </li>
   );
