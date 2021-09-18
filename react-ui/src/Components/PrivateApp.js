@@ -31,6 +31,15 @@ class PrivateApp extends React.Component {
         },
       })
       .then((res) => {
+        let tasksArray = [];
+
+        for (let i = 0; i < res.data.length; i++) {
+          tasksArray.push(res.data[i].todoDescription);
+          // tasksArray.push(res.data[i].descript)
+        }
+
+        this.setState({ tasks: tasksArray });
+
         console.log(res.data);
       })
       .catch((error) => {
@@ -44,12 +53,19 @@ class PrivateApp extends React.Component {
     // preventDefault prevents the automatic refreshing of the page and normal behaviour for a submit button
     event.preventDefault();
 
-    // get the tasks that are currently in the state and use es6 deconstruction to make a new list with the added one
-    let tasksUpdated = [...this.state.tasks, this.state.input];
+    if (this.state.input === "") {
+      // make sure the user enters data into the input
+      alert("please enter something to do");
+    } else {
+      // send an axios request to the backend to add with the authorization token
 
-    console.log(tasksUpdated);
-    // clear the input box once the new task has been added and set the state for tasks to the new array
-    this.setState({ tasks: [...tasksUpdated], input: "" });
+      // get the tasks that are currently in the state and use es6 deconstruction to make a new list with the added one
+      let tasksUpdated = [...this.state.tasks, this.state.input];
+
+      console.log(tasksUpdated);
+      // clear the input box once the new task has been added and set the state for tasks to the new array
+      this.setState({ tasks: [...tasksUpdated], input: "" });
+    }
   }
 
   // the function for handling the state of the input box
