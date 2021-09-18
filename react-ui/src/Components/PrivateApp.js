@@ -61,14 +61,37 @@ class PrivateApp extends React.Component {
       // make sure the user enters data into the input
       alert("please enter something to do");
     } else {
-      // send an axios request to the backend to add with the authorization token
+      let access_token = window.localStorage.getItem("AuthToken");
 
-      // get the tasks that are currently in the state and use es6 deconstruction to make a new list with the added one
-      let tasksUpdated = [...this.state.tasks, this.state.input];
+      axios
+        .post(
+          "/addtodo",
+          { todoDescription: this.state.input },
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          }
+        )
+        .then((res) => {
+          let tasksArray = [];
+          for (let i = 0; i < res.data.length; i++) {
+            let taskObject = {};
+            taskObject._id = res.data[i]._id;
+            taskObject.todoDescription = res.data[i].todoDescription;
+            tasksArray.push(taskObject);
+          }
+          this.setState({ tasks: tasksArray });
+          console.log(this.state.tasks);
+          console.log(res);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
 
-      console.log(tasksUpdated);
-      // clear the input box once the new task has been added and set the state for tasks to the new array
-      this.setState({ tasks: [...tasksUpdated], input: "" });
+      // clear the state.
+
+      this.setState({ input: "" });
     }
   }
 

@@ -12,7 +12,9 @@ function Form(props) {
     <form onSubmit={props.handleSubmit}>
       <h2>
         <label htmlFor="todoInput">What needs to be done?</label>
-        <button onClick={handleLogout}>Log out</button>
+        <button type="button" onClick={handleLogout}>
+          Log out
+        </button>
       </h2>
       {/* onChange has the function from the parent component app.js which receives the event onchange of the input */}
       {/* the value of the input is received from the state. and handlechange function is bounded in the parent component and passed down */}
