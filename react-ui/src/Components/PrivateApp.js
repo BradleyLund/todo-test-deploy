@@ -34,13 +34,17 @@ class PrivateApp extends React.Component {
         let tasksArray = [];
 
         for (let i = 0; i < res.data.length; i++) {
-          tasksArray.push(res.data[i].todoDescription);
-          // tasksArray.push(res.data[i].descript)
+          let taskObject = {};
+
+          taskObject._id = res.data[i]._id;
+          taskObject.todoDescription = res.data[i].todoDescription;
+
+          tasksArray.push(taskObject);
         }
 
         this.setState({ tasks: tasksArray });
 
-        console.log(res.data);
+        console.log(this.state.tasks);
       })
       .catch((error) => {
         console.error(error);
@@ -81,13 +85,39 @@ class PrivateApp extends React.Component {
   }
 
   // handling the deletion of a task
-  handleDelete(name) {
+  handleDelete(id) {
     // I just took the name of the task, I know this could cause issues if someone wants to do two tasks with the same name but thought it would do for now
     // I used the filter method to just get the tasks from the state that were not equal to the name of the one we were trying to delete.
-    let updatedTasks = this.state.tasks.filter((task) => task !== name);
 
-    // set the state to the new array without the deleted task
-    this.setState({ tasks: updatedTasks });
+    let access_token = window.localStorage.getItem("AuthToken");
+
+    // we need to post to the backend
+
+    axios
+      .post(
+        "/delete",
+        { _id: id },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
+      )
+      .then((res) => {
+        let tasksArray = [];
+        for (let i = 0; i < res.data.length; i++) {
+          let taskObject = {};
+          taskObject._id = res.data[i]._id;
+          taskObject.todoDescription = res.data[i].todoDescription;
+          tasksArray.push(taskObject);
+        }
+        this.setState({ tasks: tasksArray });
+        console.log(this.state.tasks);
+        console.log(res);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   render() {
@@ -105,7 +135,12 @@ class PrivateApp extends React.Component {
         <ul>
           {/* map through the tasks in the state and use the todo component to give them the necessary html for a list */}
           {this.state.tasks.map((task, index) => (
-            <Todo name={task} key={index} handleDelete={this.handleDelete} />
+            <Todo
+              name={task.todoDescription}
+              id={task._id}
+              key={index}
+              handleDelete={this.handleDelete}
+            />
           ))}
         </ul>
       </div>

@@ -33,6 +33,7 @@ module.exports = {
       } else {
         // find the exercise with the id given
         let indexToDelete;
+        console.log(req.body._id);
         for (let i = 0; i < user.toDoArray.length; i++) {
           if (user.toDoArray[i]._id == req.body._id) {
             indexToDelete = i;
