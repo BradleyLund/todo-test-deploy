@@ -33,13 +33,11 @@ module.exports = {
       } else {
         // find the exercise with the id given
         let indexToDelete;
-        console.log(req.body._id);
         for (let i = 0; i < user.toDoArray.length; i++) {
           if (user.toDoArray[i]._id == req.body._id) {
             indexToDelete = i;
           }
         }
-        console.log(typeof indexToDelete);
         if (typeof indexToDelete != "undefined") {
           user.toDoArray.splice(indexToDelete, 1);
           // // // save the user
@@ -77,7 +75,6 @@ module.exports = {
       } else if (!user) {
         res.send("that username was not found in the DB");
       } else {
-        console.log(user.toDoArray);
         user.toDoArray.push({ todoDescription: req.body.todoDescription });
         // // // save the user
         user.save(function (error, data) {
@@ -85,14 +82,12 @@ module.exports = {
             console.log(error);
             res.send("some error ocurred while adding the todo");
           } else {
-            console.log(data);
             // maybe send back in res.json (username and the todoarray? or just the todoarray)
             res.send(data.toDoArray);
           }
         });
       }
     });
-    // res.send(req.body);
   },
 
   getTodoList: function (req, res) {
@@ -126,7 +121,6 @@ module.exports = {
         res.send("error with the mongoose findone function");
       } else if (!user) {
         //   no username with that name found
-        // console.log(newUserDbDocument);
 
         let userModel = new User({
           username: req.body.username,
@@ -134,13 +128,11 @@ module.exports = {
           toDoArray: [],
         });
 
-        // console.log("part 2");
         userModel.save(function (error, user) {
           if (error) {
             res.send("error saving the user");
           } else {
             // Make the JWT Token that will be sent to the client side
-            console.log(user.getSignedJwtToken());
             res.status(200).send({
               username: user.username,
               token: user.getSignedJwtToken(),

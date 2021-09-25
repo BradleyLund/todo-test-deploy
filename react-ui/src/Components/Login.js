@@ -52,7 +52,6 @@ export default function Login() {
           // in here we can set the token in local storage which can then be sent in the authorization header for the future requests and will then let us see the privatepage
           const token = response.data.token;
           window.localStorage.setItem("AuthToken", token);
-          console.log(window.localStorage.getItem("AuthToken"));
           window.location.reload();
         },
         (error) => {
@@ -74,7 +73,6 @@ export default function Login() {
           // in here we can set the token in local storage which can then be sent in the authorization header for the future requests and will then let us see the privatepage
           const token = response.data.token;
           window.localStorage.setItem("AuthToken", token);
-          console.log(window.localStorage.getItem("AuthToken"));
           window.location.reload();
         },
         (error) => {

@@ -51,8 +51,6 @@ class PrivateApp extends React.Component {
         }
 
         this.setState({ tasks: tasksArray });
-
-        console.log(this.state.tasks);
       })
       .catch((error) => {
         console.error(error);
@@ -90,8 +88,6 @@ class PrivateApp extends React.Component {
             tasksArray.push(taskObject);
           }
           this.setState({ tasks: tasksArray });
-          console.log(this.state.tasks);
-          console.log(res);
         })
         .catch((error) => {
           console.error(error);
@@ -109,7 +105,6 @@ class PrivateApp extends React.Component {
 
     // inputval gets the value from where the event came from (the input box)
     let inputVal = event.target.value;
-    // console.log(inputVal);
 
     // set the new state of the input to the new value with extra letters which gets passed back down in the render method
     this.setState({ input: inputVal });
@@ -117,9 +112,6 @@ class PrivateApp extends React.Component {
 
   // handling the deletion of a task
   handleDelete(id) {
-    // I just took the name of the task, I know this could cause issues if someone wants to do two tasks with the same name but thought it would do for now
-    // I used the filter method to just get the tasks from the state that were not equal to the name of the one we were trying to delete.
-
     let access_token = window.localStorage.getItem("AuthToken");
 
     // we need to post to the backend
@@ -143,8 +135,6 @@ class PrivateApp extends React.Component {
           tasksArray.push(taskObject);
         }
         this.setState({ tasks: tasksArray });
-        console.log(this.state.tasks);
-        console.log(res);
       })
       .catch((error) => {
         console.error(error);
@@ -176,7 +166,6 @@ class PrivateApp extends React.Component {
         <Button color="primary" variant="contained" onClick={this.handleLogout}>
           Log out
         </Button>
-        {/* <Form addTask={addTask} /> */}
       </div>
     );
   }

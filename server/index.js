@@ -16,47 +16,6 @@ app.use(cors());
 
 app.use(express.json());
 
-// Answer API requests.
-app.get("/api", function (req, res) {
-  // res.set("Content-Type", "application/json");
-  console.log("api test");
-  res.send('{"message":"Hello from the custom server!"}');
-});
-
-// we probably need to put this in the routes
-
-// // here we would need to get the user from the database and see if the hashed password matches the one in the DB
-// app.post("/login", (req, res) => {
-//   const usr = req.body.username;
-//   // this is the entered password
-//   const pwd = req.body.password;
-
-//   // get the hashed password from the Database by finding the document with that user name. maybe a controller function here
-//   // for example something like the below
-//   // const hash = getPasswordbyUsername(username)
-
-//   res.send(`Username: ${usr}\n Password: ${pwd}`);
-// });
-
-// app.post("/newuser", (req, res) => {
-//   const usr = req.body.username;
-//   const pwd = req.body.password;
-
-//   console.log("hello");
-//   // we would need to add the code to check if the username is already taken?
-//   const userController = require("./controllers/car.controller.js");
-
-//   console.log(userController.createANewUser(usr, pwd));
-
-//   // userController.createANewUser(usr, pwd, function (result) {
-//   //   res.send(result);
-//   // });
-
-//   // then add the user if not
-
-//   // res.send(`Username: ${usr}\n Password: ${pwd}`);
-// });
-
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, "../react-ui/build")));
 
@@ -65,7 +24,6 @@ require("./routes/login.js")(app);
 require("./routes/getList.js")(app);
 require("./routes/addTodo.js")(app);
 require("./routes/deleteTodo.js")(app);
-// require("./routes/update.js")(app);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -82,7 +40,6 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  // res.render("error");
 });
 
 // All remaining requests return the React app, so it can handle routing.
