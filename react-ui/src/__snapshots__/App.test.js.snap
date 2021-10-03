@@ -1,0 +1,246 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Private Student App correctly 1`] = `
+<div>
+  <nav
+    className="navbar navbar-expand-lg navbar-dark bg-primary"
+  >
+    <div
+      className="container"
+    >
+      <span
+        className="navbar-brand"
+      >
+        Welcome, 
+         
+      </span>
+      <button
+        aria-controls="basic-navbar-nav"
+        aria-label="Toggle navigation"
+        className="navbar-toggler collapsed"
+        onClick={[Function]}
+        type="button"
+      >
+        <span
+          className="navbar-toggler-icon"
+        />
+      </button>
+      <div
+        aria-expanded={null}
+        className="navbar-collapse collapse"
+        id="basic-navbar-nav"
+      >
+        <div
+          className="navbar-nav"
+          onKeyDown={[Function]}
+        >
+          <span
+            className="navbar-text"
+          >
+            <a
+              href="/"
+              onClick={[Function]}
+            >
+              <span
+                className="navbarLink"
+              >
+                Home
+              </span>
+            </a>
+          </span>
+          <span
+            className="navbar-text"
+          >
+            <a
+              href="/nextlesson"
+              onClick={[Function]}
+            >
+              <span
+                className="navbarLink"
+              >
+                Start your next lesson
+              </span>
+            </a>
+          </span>
+          <a
+            className="nav-link"
+            data-rr-ui-event-key={null}
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={0}
+          >
+            <span
+              className="navbarLink"
+            >
+              Log out
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div
+    id="classTable"
+  >
+    <h2
+      className="classAbout"
+    >
+      Welcome to your lesson History! Here you can see all of your results from previous lessons! 👨‍🎓
+    </h2>
+    <div
+      className="table-responsive"
+    >
+      <table
+        className="table"
+      >
+        <thead>
+          <tr>
+            <th>
+              Date
+            </th>
+            <th>
+              Difficulty Level
+            </th>
+            <th>
+              Score
+            </th>
+            <th>
+              Percentage
+            </th>
+            <th>
+              Total Time Spent
+            </th>
+          </tr>
+        </thead>
+        <tbody />
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders Private Teacher App correctly 1`] = `
+<div>
+  <nav
+    className="navbar navbar-expand-lg navbar-dark bg-primary"
+  >
+    <div
+      className="container"
+    >
+      <span
+        className="navbar-brand"
+      >
+        Welcome, 
+         
+      </span>
+      <button
+        aria-controls="basic-navbar-nav"
+        aria-label="Toggle navigation"
+        className="navbar-toggler collapsed"
+        onClick={[Function]}
+        type="button"
+      >
+        <span
+          className="navbar-toggler-icon"
+        />
+      </button>
+      <div
+        aria-expanded={null}
+        className="navbar-collapse collapse"
+        id="basic-navbar-nav"
+      >
+        <div
+          className="navbar-nav"
+          onKeyDown={[Function]}
+        >
+          <span
+            className="navbar-text"
+          >
+            <a
+              href="/"
+              onClick={[Function]}
+            >
+              <span
+                className="navbarLink"
+              >
+                Home
+              </span>
+            </a>
+          </span>
+          <span
+            className="navbar-text"
+          >
+            <a
+              href="/addstudent"
+              onClick={[Function]}
+            >
+              <span
+                className="navbarLink"
+              >
+                Add a student
+              </span>
+            </a>
+          </span>
+          <span
+            className="navbar-text"
+          >
+            <a
+              href="/editstudent"
+              onClick={[Function]}
+            >
+              <span
+                className="navbarLink"
+              >
+                Edit a student
+              </span>
+            </a>
+          </span>
+          <span
+            className="navbar-text"
+          >
+            <a
+              href="/difficultyexamples"
+              onClick={[Function]}
+            >
+              <span
+                className="navbarLink"
+              >
+                Difficulty Examples
+              </span>
+            </a>
+          </span>
+          <a
+            className="nav-link"
+            data-rr-ui-event-key={null}
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={0}
+          >
+            <span
+              className="navbarLink"
+            >
+              Log out
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div
+    id="loadingSpinner"
+  >
+    <div
+      className="spinner-border text-primary"
+      role="status"
+    >
+      <span
+        className="visually-hidden"
+      >
+        Loading...
+      </span>
+    </div>
+  </div>
+</div>
+`;

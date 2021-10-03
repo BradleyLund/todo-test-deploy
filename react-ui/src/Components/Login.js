@@ -1,38 +1,21 @@
 import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import axios from "axios";
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
-
 export default function Login() {
+  // initialise the state of the input boxes
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [checkedOption, setCheckedOption] = useState("");
 
+  // handle change
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
+  };
+
+  const handleCheckBoxChange = (event) => {
+    setCheckedOption(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
@@ -42,55 +25,82 @@ export default function Login() {
   const handleRegister = (event) => {
     event.preventDefault();
 
-    axios
-      .post("/newuser", {
-        username: username,
-        password: password,
-      })
-      .then(
-        (response) => {
-          // in here we can set the token in local storage which can then be sent in the authorization header for the future requests and will then let us see the privatepage
-          const token = response.data.token;
-          window.localStorage.setItem("AuthToken", token);
-          window.location.reload();
-        },
-        (error) => {
-          alert(error.response.data);
-        }
-      );
+    if (username === "" || password === "") {
+      alert("Please enter a valid username and password");
+    } else {
+      axios
+        .post("/newuser", {
+          username: username,
+          password: password,
+        })
+        .then(
+          (response) => {
+            // in here we can set the token in local storage which can then be sent in the authorization header for the future requests and will then let us see the privatepage
+            const token = response.data.token;
+            window.localStorage.setItem("AuthToken", token);
+            window.location.reload();
+          },
+          (error) => {
+            alert(error.response.data);
+          }
+        );
+    }
   };
 
   const handleLogin = (event) => {
     event.preventDefault();
-    //   take the state and post a request to the backend with the details
-    axios
-      .post("/login", {
-        username: username,
-        password: password,
-      })
-      .then(
-        (response) => {
-          // in here we can set the token in local storage which can then be sent in the authorization header for the future requests and will then let us see the privatepage
-          const token = response.data.token;
-          window.localStorage.setItem("AuthToken", token);
-          window.location.reload();
-        },
-        (error) => {
-          alert(error.response.data);
-        }
-      );
-  };
 
-  const classes = useStyles();
+    if (username === "" || password === "") {
+      alert("Please enter a valid username and password");
+    } else {
+      // check if student or if teacher and then post the request to the correct route
+      if (checkedOption === "") {
+        alert("Please select whether you are a teacher or a student");
+      } else if (checkedOption === "teacher") {
+        //   take the state and post a request to the backend with the details
+        axios
+          .post("/login", {
+            username: username,
+            password: password,
+          })
+          .then(
+            (response) => {
+              // in here we can set the token in local storage which can then be sent in the authorization header for the future requests and will then let us see the privatepage
+              const token = response.data.token;
+              window.localStorage.setItem("AuthToken", token);
+              window.location.reload();
+            },
+            (error) => {
+              alert(error.response.data);
+            }
+          );
+      } else if (checkedOption === "student") {
+        // post to the student login route
+        axios
+          .post("/loginstudent", {
+            username: username,
+            password: password,
+          })
+          .then(
+            (response) => {
+              // in here we can set the token in local storage which can then be sent in the authorization header for the future requests and will then let us see the privatepage
+              const token = response.data.token;
+              window.localStorage.setItem("AuthToken", token);
+              window.location.reload();
+            },
+            (error) => {
+              alert(error.response.data);
+            }
+          );
+      }
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Typography component="h1" variant="h5">
-          Log in
-        </Typography>
-        <form className={classes.form} noValidate>
+      <div id="loginPage">
+        <h1 style={{ fontWeight: "bold" }}>MathsTracker</h1>
+        <form noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -117,28 +127,59 @@ export default function Login() {
             value={password}
             onChange={handlePasswordChange}
           />
+          <div id="radioButtons">
+            <div className="inputBox">
+              <input
+                type="radio"
+                value="teacher"
+                name="isStudent"
+                checked={checkedOption === "teacher"}
+                onChange={handleCheckBoxChange}
+              />{" "}
+              Teacher
+            </div>
+            <div className="inputBox">
+              <input
+                type="radio"
+                value="student"
+                name="isStudent"
+                checked={checkedOption === "student"}
+                onChange={handleCheckBoxChange}
+              />{" "}
+              Student
+            </div>
+          </div>
 
-          <Button
+          <button
             id="logInButton"
+            className="button-66"
             type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
             onClick={handleLogin}>
             Log In
-          </Button>
-          <Button
-            id="registerButton"
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={handleRegister}>
-            Register
-          </Button>
+          </button>
+
+          {checkedOption === "teacher" ? (
+            <button
+              className="button-66"
+              id="registerButton"
+              type="submit"
+              onClick={handleRegister}>
+              Register
+            </button>
+          ) : (
+            <></>
+          )}
         </form>
+        <div id="aboutSection">
+          <h2 style={{ fontWeight: "bold" }}>About</h2>
+          <p>
+            Welcome to MathsTracker, the perfect web application to track your
+            students maths performance 💯<br></br>
+            <br></br>
+            If you are a teacher, you can register a new account. If you are a
+            student, your teacher will sign you up! 🚀
+          </p>
+        </div>
       </div>
     </Container>
   );
