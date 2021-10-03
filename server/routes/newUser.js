@@ -1,4 +1,4 @@
 module.exports = function (app) {
-  const user = require("../controllers/user.controller.js");
-  app.post("/newuser", user.createANewUser);
+  const teacher = require("../controllers/teacher.controller.js");
+  app.post("/newuser", teacher.createANewTeacher);
 };
