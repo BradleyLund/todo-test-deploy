@@ -167,7 +167,7 @@ class LessonPage extends React.Component {
             <h2 className="classAbout">
               Well Done! You got {this.state.correctCount} out of 10{" "}
             </h2>
-            <a href="/home">
+            <a href="https://heroku-todo-test.herokuapp.com/">
               <button className="button-66">Done</button>
             </a>
           </div>
