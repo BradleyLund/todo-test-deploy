@@ -1,4 +1,4 @@
 module.exports = function (app) {
-  const user = require("../controllers/user.controller.js");
-  app.post("/login", user.loginUser);
+  const teacher = require("../controllers/teacher.controller.js");
+  app.post("/login", teacher.loginTeacher);
 };
