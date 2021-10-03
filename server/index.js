@@ -27,7 +27,7 @@ require("./routes/getList.js")(app);
 require("./routes/addTodo.js")(app);
 require("./routes/deleteTodo.js")(app);
 
-// require("./routes/authorize.js")(app);
+require("./routes/authorize.js")(app);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
